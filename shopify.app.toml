@@ -1,3 +1,27 @@
-# This file stores configurations for your Shopify app.
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
+name = "pix-gs"
+client_id = "44d0c959f23e2520f6e4b7e89c17b4bf"
+application_url = "https://brisbane-logical-butterfly-deputy.trycloudflare.com"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://brisbane-logical-butterfly-deputy.trycloudflare.com/auth/callback",
+  "https://brisbane-logical-butterfly-deputy.trycloudflare.com/auth/shopify/callback",
+  "https://brisbane-logical-butterfly-deputy.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2023-07"
+
+[pos]
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "google-shopping-pix-feature.myshopify.com"

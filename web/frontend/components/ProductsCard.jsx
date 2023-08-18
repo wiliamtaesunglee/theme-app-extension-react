@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, TextContainer, Text } from "@shopify/polaris";
+import { Card, TextContainer, Text, TextField } from "@shopify/polaris";
 import { Toast } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
@@ -11,6 +11,7 @@ export function ProductsCard() {
   const fetch = useAuthenticatedFetch();
   const { t } = useTranslation();
   const productsCount = 5;
+  const [discount, setDiscount] = useState(0);
 
   const {
     data,
@@ -54,25 +55,22 @@ export function ProductsCard() {
     <>
       {toastMarkup}
       <Card
-        title={t("ProductsCard.title")}
+        title={"Configuration of Discount"}
         sectioned
         primaryFooterAction={{
-          content: t("ProductsCard.populateProductsButton", {
-            count: productsCount,
-          }),
+          content: `Apply Discount of ${discount}%`,
           onAction: handlePopulate,
           loading: isLoading,
         }}
       >
-        <TextContainer spacing="loose">
-          <p>{t("ProductsCard.description")}</p>
-          <Text as="h4" variant="headingMd">
-            {t("ProductsCard.totalProductsHeading")}
-            <Text variant="bodyMd" as="p" fontWeight="semibold">
-              {isLoadingCount ? "-" : data.count}
-            </Text>
-          </Text>
-        </TextContainer>
+        <TextField
+          label="Discount"
+          value={discount}
+          onChange={setDiscount}
+          type="number"
+          min={1}
+          max={80}
+        />
       </Card>
     </>
   );

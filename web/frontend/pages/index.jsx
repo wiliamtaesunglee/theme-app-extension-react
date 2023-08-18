@@ -19,7 +19,7 @@ export default function HomePage() {
   const { t } = useTranslation();
   return (
     <Page narrowWidth>
-      <TitleBar title={t("HomePage.title")} primaryAction={null} />
+      <TitleBar title={"Google Shopping With Discount"} primaryAction={null} />
       <Layout>
         <Layout.Section>
           <Card sectioned>
@@ -32,44 +32,18 @@ export default function HomePage() {
               <Stack.Item fill>
                 <TextContainer spacing="loose">
                   <Text as="h2" variant="headingMd">
-                    {t("HomePage.heading")}
+                    Google Shopping with discount feature
                   </Text>
-                  <p>
-                    <Trans
-                      i18nKey="HomePage.yourAppIsReadyToExplore"
-                      components={{
-                        PolarisLink: (
-                          <Link url="https://polaris.shopify.com/" external />
-                        ),
-                        AdminApiLink: (
-                          <Link
-                            url="https://shopify.dev/api/admin-graphql"
-                            external
-                          />
-                        ),
-                        AppBridgeLink: (
-                          <Link
-                            url="https://shopify.dev/apps/tools/app-bridge"
-                            external
-                          />
-                        ),
-                      }}
-                    />
-                  </p>
-                  <p>{t("HomePage.startPopulatingYourApp")}</p>
-                  <p>
-                    <Trans
-                      i18nKey="HomePage.learnMore"
-                      components={{
-                        ShopifyTutorialLink: (
-                          <Link
-                            url="https://shopify.dev/apps/getting-started/add-functionality"
-                            external
-                          />
-                        ),
-                      }}
-                    />
-                  </p>
+                  <Text as="h2" variant="headingMd">
+                    What this app does?
+                  </Text>
+                  <Text variant="bodyMd" as="p">
+                    Introducing our exclusive Shopify app tailored for the Brazilian market, designed to simplify your Google Shopping experience. With just a few clicks, our app takes all the products from your store and generates an XML file that seamlessly feeds into Google Shopping.
+                  </Text>
+                      
+                  <Text variant="bodyMd" as="p">
+                    But that's not all! Recognizing the popularity of the PIX payment method in Brazil, we've added a special discount feature. Simply input a percentage, and the app will automatically apply that discount to all your products. Whether it's a seasonal sale or an exclusive offer, managing your pricing strategy has never been easier. Enhance your store's visibility, attract more customers, and take control of your online sales with our user-friendly app!
+                  </Text>
                 </TextContainer>
               </Stack.Item>
               <Stack.Item>

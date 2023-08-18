@@ -7,18 +7,14 @@
 </div>
 
 <script>
-  const home = {{ request.path | json }}
+  let currentProduct = {{ product | json }};
 </script>
 
 {% schema %}
-{
-  "name": "Sample React Extension",
-  "templates": [
-    "page"
-  ],
-  "target": "section",
-  "settings": [
-
-  ]
-}
+  {
+    "name": "Sample React Extension",
+    "templates": ["product"],
+    "target": "section",
+    "settings": []
+  }
 {% endschema %}

@@ -1,9 +1,7 @@
-export default function App({ home }) {
-  console.log('Home', home)
-
+export default function App({ currentProduct }) {
   return (
     <div className="tw-text-5xl tw-text-red-600">
-      Hello From React!
+      {currentProduct.price * 0.95}
     </div>
   )
 }

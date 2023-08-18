@@ -6,6 +6,6 @@ import './theme.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App home={home} />
+    <App currentProduct={currentProduct} />
   </React.StrictMode>
 )

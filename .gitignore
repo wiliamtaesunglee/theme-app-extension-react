@@ -26,3 +26,6 @@ extensions/*/build
 
 # Node library SQLite database
 web/database.sqlite
+
+extensions/*/node_modules
+extensions/test-vite-app/assets
