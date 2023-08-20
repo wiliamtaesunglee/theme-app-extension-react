@@ -21,6 +21,7 @@
     "@shopify/app": "^3.48.0",
     "@shopify/cli": "^3.48.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "axios": "^1.4.0",
     "clsx": "^2.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",

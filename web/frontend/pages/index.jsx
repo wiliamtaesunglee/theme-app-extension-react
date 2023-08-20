@@ -14,9 +14,17 @@ import { useTranslation, Trans } from "react-i18next";
 import { trophyImage } from "../assets";
 
 import { ProductsCard } from "../components";
+import { useAppQuery } from "../hooks";
 
 export default function HomePage() {
   const { t } = useTranslation();
+  const {
+    data,
+    loading
+  } = useAppQuery({
+    url: '/api/products/all'
+  });
+  console.log(data)
   return (
     <Page narrowWidth>
       <TitleBar title={"Google Shopping With Discount"} primaryAction={null} />
@@ -60,6 +68,7 @@ export default function HomePage() {
         </Layout.Section>
         <Layout.Section>
           <ProductsCard />
+          {/* {loading ? '...loading' : <div>{JSON.stringify(data)}</div>} */}
         </Layout.Section>
       </Layout>
     </Page>

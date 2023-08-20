@@ -2,7 +2,7 @@
 
 name = "pix-gs"
 client_id = "44d0c959f23e2520f6e4b7e89c17b4bf"
-application_url = "https://brisbane-logical-butterfly-deputy.trycloudflare.com"
+application_url = "https://format-philosophy-rangers-maps.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://brisbane-logical-butterfly-deputy.trycloudflare.com/auth/callback",
-  "https://brisbane-logical-butterfly-deputy.trycloudflare.com/auth/shopify/callback",
-  "https://brisbane-logical-butterfly-deputy.trycloudflare.com/api/auth/callback"
+  "https://format-philosophy-rangers-maps.trycloudflare.com/auth/callback",
+  "https://format-philosophy-rangers-maps.trycloudflare.com/auth/shopify/callback",
+  "https://format-philosophy-rangers-maps.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

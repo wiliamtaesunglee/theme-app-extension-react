@@ -7,6 +7,8 @@ import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
+import { verifyProxy } from "./middleware/verifyProxy.js";
+import { proxyRouter } from "./routes/app_proxy/index.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -39,11 +41,13 @@ app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
 
-app.get("/api/products/count", async (_req, res) => {
-  const countData = await shopify.api.rest.Product.count({
+app.use("/proxy_route", verifyProxy, proxyRouter);
+
+app.get("/api/products/all", async (_req, res) => {
+  const products = await shopify.api.rest.Product.all({
     session: res.locals.shopify.session,
   });
-  res.status(200).send(countData);
+  res.status(200).send(products);
 });
 
 app.get("/api/products/create", async (_req, res) => {
