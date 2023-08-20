@@ -1,7 +1,10 @@
+import { PrismaClient } from "@prisma/client";
 import crypto from "crypto";
+import shopify from "../shopify.js";
 
+const prisma = new PrismaClient();
 
-export const verifyProxy = (req, res, next) => {
+export const verifyProxy = async (req, res, next) => {
   console.log('req._parsedUrl:', req._parsedUrl);
   const { signature } = req.query;
   const queryURI = req._parsedUrl.query
@@ -19,6 +22,15 @@ export const verifyProxy = (req, res, next) => {
     
   if (calculatedSignature === signature) {
     res.locals.user_shop = req.query.shop;
+    const session = await prisma.session.findFirst({
+      where: {
+        shop: req.query.shop,
+      }
+    });
+    const products = await shopify.api.rest.Product.all({
+      session,
+    });
+    res.locals.products = products;
     next();
   } else {
     res.send(401);
