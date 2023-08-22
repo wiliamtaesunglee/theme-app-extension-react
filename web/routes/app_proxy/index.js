@@ -9,7 +9,6 @@ function extractShopName(url) {
 
 function generateGoogleShoppingXML(products, shop) {
   const shopName = extractShopName(shop);
-  console.log('*****', extractShopName(shop), '*****', shop)
 
   const xml = create({ version: '1.0', encoding: 'UTF-8' })
     .ele('rss', { 'xmlns:g': 'http://base.google.com/ns/1.0', version: '2.0' })
