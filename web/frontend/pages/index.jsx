@@ -13,7 +13,7 @@ import { useTranslation, Trans } from "react-i18next";
 
 import { trophyImage } from "../assets";
 
-import { ProductsCard } from "../components";
+import { XMLConfigs } from "../components";
 import { useAppQuery } from "../hooks";
 
 export default function HomePage() {
@@ -67,8 +67,9 @@ export default function HomePage() {
           </Card>
         </Layout.Section>
         <Layout.Section>
-          <ProductsCard />
+          {/* <ProductsCard /> */}
           {/* {loading ? '...loading' : <div>{JSON.stringify(data)}</div>} */}
+          <XMLConfigs />
         </Layout.Section>
       </Layout>
     </Page>

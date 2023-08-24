@@ -2,7 +2,7 @@
 
 name = "pix-gs"
 client_id = "44d0c959f23e2520f6e4b7e89c17b4bf"
-application_url = "https://thunder-ensuring-madrid-indie.trycloudflare.com"
+application_url = "https://measurements-sunny-contest-members.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://thunder-ensuring-madrid-indie.trycloudflare.com/auth/callback",
-  "https://thunder-ensuring-madrid-indie.trycloudflare.com/auth/shopify/callback",
-  "https://thunder-ensuring-madrid-indie.trycloudflare.com/api/auth/callback"
+  "https://measurements-sunny-contest-members.trycloudflare.com/auth/callback",
+  "https://measurements-sunny-contest-members.trycloudflare.com/auth/shopify/callback",
+  "https://measurements-sunny-contest-members.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

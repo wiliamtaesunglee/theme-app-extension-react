@@ -8,7 +8,7 @@ export default function App({ currentProduct }) {
   const valueInStallments = formatBRL(productPrice / 3);
   const currentPrice = formatBRL(productPrice);
   const currentPriceWithDiscount = formatBRL((productPrice) * 0.95);
-
+  
   return (
     <div className="tw-text-2xl">
       <div className="tw-flex tw-items-center">
