@@ -7,7 +7,7 @@ import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
-import { verifyProxy } from "./middleware/verifyProxy.js";
+import { prisma, verifyProxy } from "./middleware/verifyProxy.js";
 import { proxyRouter } from "./routes/app_proxy/index.js";
 
 const PORT = parseInt(
@@ -62,6 +62,33 @@ app.get("/api/products/create", async (_req, res) => {
     error = e.message;
   }
   res.status(status).send({ success: status === 200, error });
+});
+
+app.post('/api/products/config', async (_req, res) => {
+  const url = `https://${res.locals.shopify.session?.shop}/apps/google-shopping-pix/products`;
+  console.log('***************************')
+  try {
+    await prisma.xMLConfig.upsert({
+      where: {
+        shop: res.locals.shopify.session?.shop,
+      },
+      update: {
+        ..._req.body,
+      },
+      create: {
+        ..._req.body,
+        shop: res.locals.shopify.session?.shop,
+      }
+    });
+    console.log('>>>>>', url)
+    res.status(200).send(url);
+  } catch(e) {
+    console.log('error', e);
+    res.status(500).send({ success: false, error: e.message });
+  }
+
+
+  res.status(200).send({ success: true, url });
 });
 
 app.use(shopify.cspHeaders());

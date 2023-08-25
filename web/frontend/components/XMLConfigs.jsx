@@ -1,17 +1,14 @@
 import { useState } from "react";
-import { Card, Checkbox, Text } from "@shopify/polaris";
+import { Card, Checkbox, Text, Button } from "@shopify/polaris";
 import { Toast } from "@shopify/app-bridge-react";
-import { useTranslation } from "react-i18next";
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
-import { useCallback } from "react";
 
 export function XMLConfigs() {
   const emptyToastProps = { content: null };
+  const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [toastProps, setToastProps] = useState(emptyToastProps);
   const fetch = useAuthenticatedFetch();
-  const { t } = useTranslation();
-  const productsCount = 5;
   const [options, setOptions] = useState({
     autoGTIN: false,
     allCustom: false,
@@ -19,15 +16,13 @@ export function XMLConfigs() {
     titleWithVariantTitle: false,
     utmTracking: true,
     defaultCurrency: true,
-
     idToSku: false,
     idToVariantSKU: false,
     idToProductId: false,
     idToVariantId: false,
     secondImage: false,
     mainImage: false,
-  })
-  const [checked, setChecked] = useState(false);
+  });
   const handleChange = (e, name) => {
     setOptions({ ...options, [name]: e });
   }
@@ -38,13 +33,28 @@ export function XMLConfigs() {
     isLoading: isLoadingCount,
     isRefetching: isRefetchingCount,
   } = useAppQuery({
-    url: "/api/products/count",
+    url: "/api/products/config",
     reactQueryOptions: {
       onSuccess: () => {
         setIsLoading(false);
       },
     },
   });
+
+  const handleSubmit = async (configs) => {
+    try {
+      const response = await fetch('/api/products/config', {
+        method: 'POST',
+        body: JSON.stringify(configs),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }, configs);
+      console.log(response)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
 
   const toastMarkup = toastProps.content && !isRefetchingCount && (
     <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
@@ -207,6 +217,16 @@ export function XMLConfigs() {
             </Text>
           </div>
         </div>
+      </Card>
+
+      <Card
+        title={"Configuration XML Generator"}
+        sectioned
+      >
+        <Text as="h2" variant="headingMd">XML url generator</Text>
+        <br />
+        <Button onClick={() => handleSubmit(options)} primary>Generate Google Shopping XML</Button>
+        <br />
       </Card>
     </>
   );

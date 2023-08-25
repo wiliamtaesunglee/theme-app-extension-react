@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import crypto from "crypto";
 import shopify from "../shopify.js";
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
 export const verifyProxy = async (req, res, next) => {
   console.log('req._parsedUrl:', req._parsedUrl);

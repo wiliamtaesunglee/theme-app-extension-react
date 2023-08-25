@@ -20,3 +20,21 @@ model Session {
   accessToken String
   userId      BigInt?
 }
+
+model XMLConfig {
+  shop                  String   @id
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  autoGTIN              Boolean  @default(false)
+  allCustom             Boolean  @default(false)
+  exportFirstVariant    Boolean  @default(false)
+  titleWithVariantTitle Boolean  @default(false)
+  utmTracking           Boolean  @default(true)
+  defaultCurrency       Boolean  @default(true)
+  idToSku               Boolean  @default(false)
+  idToVariantSKU        Boolean  @default(false)
+  idToProductId         Boolean  @default(false)
+  idToVariantId         Boolean  @default(false)
+  secondImage           Boolean  @default(false)
+  mainImage             Boolean  @default(false)
+}
