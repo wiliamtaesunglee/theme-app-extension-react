@@ -37,4 +37,6 @@ model XMLConfig {
   idToVariantId         Boolean  @default(false)
   secondImage           Boolean  @default(false)
   mainImage             Boolean  @default(false)
+  currencyCode          String   @default("USD")
+  discountCode          String?
 }

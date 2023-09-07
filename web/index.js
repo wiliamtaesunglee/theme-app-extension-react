@@ -65,30 +65,46 @@ app.get("/api/products/create", async (_req, res) => {
 });
 
 app.post('/api/products/config', async (_req, res) => {
-  const url = `https://${res.locals.shopify.session?.shop}/apps/google-shopping-pix/products`;
-  console.log('***************************')
+  const shop = res.locals.shopify?.session.shop
+  if (!shop) {
+    return res.status(400).json({ success: false, message: "Shop information is missing." });
+  }
+
+  const shopData = await new shopify.api.clients.Graphql({ session: res.locals.shopify.session }).query({
+    data: `query {
+      shop {
+        currencyCode
+      }
+    }`,
+  });
+
+  console.log('shopData', shopData?.body?.data?.shop.currencyCode)
+
+  const url = `https://${shop}/apps/google-shopping-pix/products`;
+
   try {
+
     await prisma.xMLConfig.upsert({
       where: {
-        shop: res.locals.shopify.session?.shop,
+        shop: shop,
       },
       update: {
         ..._req.body,
+        currencyCode: shopData?.body?.data?.shop.currencyCode
       },
       create: {
+        shop: shop,
         ..._req.body,
-        shop: res.locals.shopify.session?.shop,
+        currencyCode: shopData?.body?.data?.shop.currencyCode
       }
     });
-    console.log('>>>>>', url)
-    res.status(200).send(url);
+
+    res.status(200)
+      .json({ body: { url }, success: true });
   } catch(e) {
     console.log('error', e);
-    res.status(500).send({ success: false, error: e.message });
+    res.status(500).json({ success: false, message: "Internal server error." });
   }
-
-
-  res.status(200).send({ success: true, url });
 });
 
 app.use(shopify.cspHeaders());

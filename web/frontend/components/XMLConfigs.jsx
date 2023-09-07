@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, Checkbox, Text, Button } from "@shopify/polaris";
+import { Card, Checkbox, Text, Button, TextField } from "@shopify/polaris";
 import { Toast } from "@shopify/app-bridge-react";
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
 
@@ -9,6 +9,7 @@ export function XMLConfigs() {
   const [isLoading, setIsLoading] = useState(true);
   const [toastProps, setToastProps] = useState(emptyToastProps);
   const fetch = useAuthenticatedFetch();
+  const [discount, setDiscount] = useState(0);
   const [options, setOptions] = useState({
     autoGTIN: false,
     allCustom: false,
@@ -22,7 +23,9 @@ export function XMLConfigs() {
     idToVariantId: false,
     secondImage: false,
     mainImage: false,
+    discountCode: "0",
   });
+
   const handleChange = (e, name) => {
     setOptions({ ...options, [name]: e });
   }
@@ -49,10 +52,16 @@ export function XMLConfigs() {
         headers: {
           'Content-Type': 'application/json'
         }
-      }, configs);
-      console.log(response)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      setUrl(data.body.url);
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
   }
 
@@ -60,8 +69,23 @@ export function XMLConfigs() {
     <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
   );
 
+  const handleTextFieldChange = (value) => {
+    setOptions(prev => ({ ...prev, discount: String(value) }));
+  };
+
   return (
     <>
+      <Card sectioned>
+        <Text as="h2" variant="headingMd">Apply Discount to final price in Google Shopping for each product</Text>
+        <TextField
+          label="Discount percentage **not required"
+          value={options.discount}
+          onChange={handleTextFieldChange}
+          autoComplete="off"
+          max={99}
+          type="number"
+        />
+      </Card>
       <Card
         title={"Configuration XML Generator"}
         sectioned
@@ -115,7 +139,6 @@ export function XMLConfigs() {
               Default is to add utm_source=google&utm_medium=cpc&utm_campaign=google&shopping parameters so shopify can show marketing statistics.
             </Text>
           </div>
-
 
           <div style={{ marginBottom: 16 }}>
             <Checkbox
@@ -227,6 +250,8 @@ export function XMLConfigs() {
         <br />
         <Button onClick={() => handleSubmit(options)} primary>Generate Google Shopping XML</Button>
         <br />
+        <br />
+        <p>{`Your url is: ${url}`}</p>
       </Card>
     </>
   );

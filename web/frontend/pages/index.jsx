@@ -9,22 +9,15 @@ import {
   Text,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import { trophyImage } from "../assets";
 
 import { XMLConfigs } from "../components";
-import { useAppQuery } from "../hooks";
 
 export default function HomePage() {
   const { t } = useTranslation();
-  const {
-    data,
-    loading
-  } = useAppQuery({
-    url: '/api/products/all'
-  });
-  console.log(data)
+
   return (
     <Page narrowWidth>
       <TitleBar title={"Google Shopping With Discount"} primaryAction={null} />
